@@ -4,27 +4,7 @@
 // gcc -o pwm pwm.c -l bcm2835
 // sudo ./pwm
 
-#include <bcm2835.h>
-#include <stdio.h>
-#include <stdlib.h>
-// PWM output on RPi Plug P1 pin 12 (which is GPIO pin 18)
-// in alt fun 5.
-// Note that this is the _only_ PWM pin available on the RPi IO headers
-#define PIN RPI_GPIO_P1_12
-// and it is controlled by PWM channel 0
-#define PWM_CHANNEL 0
-// This controls the max range of the PWM signal
-#define RANGE 1023
-
-int get_cpu_tmp(void)
-{
-        FILE *file;
-        char c;
-        file = fopen("/sys/class/thermal/thermal_zone0/temp", "r");
-    
-        fclose(file);
-        return 0;
-}
+#include "fanctrl.h"
 
 int main(int argc, char **argv)
 {
