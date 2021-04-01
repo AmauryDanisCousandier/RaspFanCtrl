@@ -22,6 +22,4 @@
 // This controls the max range of the PWM signal
 #define RANGE 1023
 
-short get_cpu_tmp(void);
-
 #endif
