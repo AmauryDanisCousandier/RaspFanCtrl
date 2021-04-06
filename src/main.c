@@ -20,6 +20,12 @@ short get_cpu_tmp(void)
     return ((buff[0] - 48) * 10) + ((buff[1]) - 48);
 }
 
+void wait_stime(int delay)
+{
+	int i = 0;
+	while (i++ != (delay * 100));
+}
+
 int main(int argc, char **argv)
 {
     short tmp;
@@ -31,9 +37,10 @@ int main(int argc, char **argv)
     bcm2835_pwm_set_mode(PWM_CHANNEL, 1, 1);
     bcm2835_pwm_set_range(PWM_CHANNEL, RANGE);
     while (1) {
-        tmp = get_cpu_tmp(void);
-        if (tmp > 50)bcm2835_pwm_set_data(PWM_CHANNEL, 1023);
-        if (tmp < 50)bcm2835_pwm_set_data(PWM_CHANNEL, 0);
+        tmp = get_cpu_tmp();
+	if (tmp > 70)bcm2835_pwm_set_data(PWM_CHANNEL, 1023);
+        if (tmp < 60)bcm2835_pwm_set_data(PWM_CHANNEL, 0);
+	wait_stime(500);
     }
     bcm2835_close();
     return 0;
