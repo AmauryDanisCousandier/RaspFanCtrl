@@ -10,7 +10,7 @@ SRC	=	src/main.c
 BINARY	=	RaspFanCtrl
 
 build:
-	gcc -o $(BINARY) $(src) -l bcm2835
+	gcc -o $(BINARY) $(SRC) -l bcm2835
 
 exec:
 	sudo ./RaspFanCtrl
