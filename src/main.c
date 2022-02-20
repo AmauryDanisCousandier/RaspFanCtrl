@@ -20,12 +20,6 @@ short get_cpu_tmp(void)
     return ((buff[0] - 48) * 10) + ((buff[1]) - 48);
 }
 
-void wait_stime(int delay)
-{
-    int i = 0;
-    while (i++ != (delay * 100));
-}
-
 int init(void)
 {
     if (!bcm2835_init()) return 1;
@@ -43,9 +37,10 @@ int auto_mode(short low, short high)
     if (init()) return 1;
     while (1) {
         tmp = get_cpu_tmp();
-        if (tmp > high + 10)bcm2835_pwm_set_data(PWM_CHANNEL, 1023);
-        else if (tmp > high)bcm2835_pwm_set_data(PWM_CHANNEL, 800);
-        else if (tmp < low)bcm2835_pwm_set_data(PWM_CHANNEL, 0);
+        if (tmp > high + 10) bcm2835_pwm_set_data(PWM_CHANNEL, 1023);
+        else if (tmp > high + 5) bcm2835_pwm_set_data(PWM_CHANNEL, 900)
+        else if (tmp > high) bcm2835_pwm_set_data(PWM_CHANNEL, 700);
+        else if (tmp < low) bcm2835_pwm_set_data(PWM_CHANNEL, 0);
     }
     bcm2835_close();
 }
@@ -75,7 +70,7 @@ int static_mode(char *argv)
 
 int main(int argc, char **argv)
 {
-    if (argc == 1) return (auto_mode(50, 60));
+    if (argc == 1) return (auto_mode(45, 50));
     if (argc == 2 && argv[1][0] == '-' && argv[1][1] == 'm') return (manual_mode());
     if (argc == 2 && argv[1][0] == '-' && argv[1][1] == 's') return (static_mode(argv[2]));
     return 0;
