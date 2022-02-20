@@ -38,7 +38,7 @@ int auto_mode(short low, short high)
     while (1) {
         tmp = get_cpu_tmp();
         if (tmp > high + 10) bcm2835_pwm_set_data(PWM_CHANNEL, 1023);
-        else if (tmp > high + 5) bcm2835_pwm_set_data(PWM_CHANNEL, 900)
+        else if (tmp > high + 5) bcm2835_pwm_set_data(PWM_CHANNEL, 900);
         else if (tmp > high) bcm2835_pwm_set_data(PWM_CHANNEL, 700);
         else if (tmp < low) bcm2835_pwm_set_data(PWM_CHANNEL, 0);
     }
