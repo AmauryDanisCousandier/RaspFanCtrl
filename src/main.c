@@ -40,7 +40,7 @@ int auto_mode(short low, short high)
         if (tmp > 70) bcm2835_pwm_set_data(PWM_CHANNEL, 1023);
         else if (tmp < 45) bcm2835_pwm_set_data(PWM_CHANNEL, 0);
         else {
-            bcm2835_pwm_set_data(PWM_CHANNEL, 41 * (70 - tmp));
+            bcm2835_pwm_set_data(PWM_CHANNEL, 41 * (tmp - 45));
         }
     }
     bcm2835_close();
